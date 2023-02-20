@@ -1187,10 +1187,15 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
 #define DEFAULT_MAX_FEEDRATE          { 60, 60, 5, 50 }
+#define IS_VULCANO                    false
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES    { 180, 180, 5, 380 } // ...or, set your own edit limits
+  if IS_VULCANO
+    #define MAX_FEEDRATE_EDIT_VALUES    { 180, 180, 5, 1800 } // ...or, set your own edit limits
+  #else
+    #define MAX_FEEDRATE_EDIT_VALUES    { 180, 180, 5, 380 } // ...or, set your own edit limits
+  #endif
 #endif
 
 /**
